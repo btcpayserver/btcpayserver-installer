@@ -7,10 +7,10 @@ RUN npm install -g npm
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY BTCPayServer.Installer/*.csproj ./
 RUN dotnet restore
 # Copy everything else and build
-COPY . ./
+COPY ./BTCPayServer.Installer ./
 
 RUN cd ClientApp && npm i && npm rebuild node-sass && npm run build
 RUN dotnet publish -c Release -o out
