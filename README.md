@@ -8,3 +8,5 @@ npm i
 cd ../
 dotnet run
 ```
+
+`docker run -d -p 666:80 --name btcpayserver-installer  kukks/btcpayserver-installer:latest`

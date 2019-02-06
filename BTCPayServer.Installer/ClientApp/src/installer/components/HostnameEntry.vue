@@ -47,7 +47,7 @@
 
         private sshModule = getModule(SSHModule, this.$store);
 
-        @Watch(nameof<HostnameEntry>((x: HostnameEntry) => x.value))
+        @Watch("value")
         public async onHostChange() {
             await this.checkHost();
         }

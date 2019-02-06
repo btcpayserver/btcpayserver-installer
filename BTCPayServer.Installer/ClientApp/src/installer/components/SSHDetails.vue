@@ -116,7 +116,7 @@
         public submit() {
         }
 
-        @Watch(nameof<SSHDetails>((x: SSHDetails) => x.notificationMessage))
+        @Watch("notificationMessage")
         public onNotificationMessage(val: string, oldVal: string) {
 
             this.showNotificationMessage = true;
