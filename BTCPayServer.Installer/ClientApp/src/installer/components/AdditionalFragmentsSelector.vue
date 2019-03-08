@@ -24,6 +24,13 @@
                 field-label="WooCommerce Hostname"
                 :host-valid="woocommerceHostValid"
                 @host-valid="woocommerceHostValid = $event"></HostnameEntry>
+        <v-checkbox v-model="btcTransmuter" label="Enable Btc Transmuter"></v-checkbox>
+        <HostnameEntry
+                v-if="btcTransmuter"
+                v-model="btcTransmuterHost"
+                field-label="Btc Transmuter Hostname"
+                :host-valid="btcTransmuterHostValid"
+                @host-valid="btcTransmuterHostValid = $event"></HostnameEntry>
         <v-checkbox v-model="btcqbo" label="Enable Quick Books Integration"></v-checkbox>
 
         <v-btn :disabled="!valid" @click="submit">
@@ -91,7 +98,12 @@
             this.configModule.setAdditionalFragments(
                 this.constructAdditionalFragments(
                     val,
-                    this.lndAutoPilot, this.saveMemory, this.librePatron, this.woocommerce, this.btcqbo));
+                    this.lndAutoPilot,
+                    this.saveMemory,
+                    this.librePatron,
+                    this.woocommerce,
+                    this.btcqbo,
+                    this.btcTransmuter));
         }
 
 
@@ -109,7 +121,11 @@
                 this.constructAdditionalFragments(
                     this.pruningOption,
                     val,
-                    this.saveMemory, this.librePatron, this.woocommerce, this.btcqbo));
+                    this.saveMemory,
+                    this.librePatron,
+                    this.woocommerce,
+                    this.btcqbo,
+                    this.btcTransmuter));
         }
 
         public get saveMemory() {
@@ -126,7 +142,11 @@
                 this.constructAdditionalFragments(
                     this.pruningOption,
                     this.lndAutoPilot,
-                    val, this.librePatron, this.woocommerce, this.btcqbo));
+                    val,
+                    this.librePatron,
+                    this.woocommerce,
+                    this.btcqbo,
+                    this.btcTransmuter));
         }
 
         public get librePatron() {
@@ -144,12 +164,42 @@
                     this.pruningOption,
                     this.lndAutoPilot,
                     this.saveMemory,
-                    val, this.woocommerce, this.btcqbo));
+                    val,
+                    this.woocommerce,
+                    this.btcqbo,
+                    this.btcTransmuter));
             if (!val) {
                 this.librePatronHost = "";
             }
 
         }
+
+
+        public get btcTransmuter() {
+            for (const fragment of this.additionalFragments) {
+                if (fragment === "opt-add-btctransmuter") {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public set btcTransmuter(val: boolean) {
+            this.configModule.setAdditionalFragments(
+                this.constructAdditionalFragments(
+                    this.pruningOption,
+                    this.lndAutoPilot,
+                    this.saveMemory,
+                    this.librePatron,
+                    this.woocommerce,
+                    this.btcqbo,
+                    val));
+
+            if (!val) {
+                this.btcTransmuterHost = "";
+            }
+        }
+
 
         public get woocommerce() {
             for (const fragment of this.additionalFragments) {
@@ -167,7 +217,9 @@
                     this.lndAutoPilot,
                     this.saveMemory,
                     this.librePatron,
-                    val, this.btcqbo));
+                    val,
+                    this.btcqbo,
+                    this.btcTransmuter));
 
             if (!val) {
                 this.woocommerceHost = "";
@@ -191,7 +243,8 @@
                     this.saveMemory,
                     this.librePatron,
                     this.woocommerce,
-                    val));
+                    val,
+                    this.btcTransmuter));
         }
 
         public get librePatronHost() {
@@ -205,7 +258,9 @@
                 librePatronHost: value,
                 librePatronHostValid: this.configModule.librePatronHostValid,
                 woocommerceHost: this.configModule.woocommerceHost,
-                woocommerceHostValid: this.configModule.woocommerceHostValid
+                woocommerceHostValid: this.configModule.woocommerceHostValid,
+                btcTransmuterHost: this.configModule.btcTransmuterHost,
+                btcTransmuterHostValid: this.configModule.btcTransmuterHostValid
             });
         }
 
@@ -220,7 +275,9 @@
                 librePatronHost: this.configModule.librePatronHost,
                 librePatronHostValid: value,
                 woocommerceHost: this.configModule.woocommerceHost,
-                woocommerceHostValid: this.configModule.woocommerceHostValid
+                woocommerceHostValid: this.configModule.woocommerceHostValid,
+                btcTransmuterHost: this.configModule.btcTransmuterHost,
+                btcTransmuterHostValid: this.configModule.btcTransmuterHostValid
             });
         }
 
@@ -235,7 +292,9 @@
                 librePatronHost: this.configModule.librePatronHost,
                 librePatronHostValid: this.configModule.librePatronHostValid,
                 woocommerceHost: value,
-                woocommerceHostValid: this.configModule.woocommerceHostValid
+                woocommerceHostValid: this.configModule.woocommerceHostValid,
+                btcTransmuterHost: this.configModule.btcTransmuterHost,
+                btcTransmuterHostValid: this.configModule.btcTransmuterHostValid
             });
         }
 
@@ -250,7 +309,42 @@
                 librePatronHost: this.configModule.librePatronHost,
                 librePatronHostValid: this.configModule.librePatronHostValid,
                 woocommerceHost: this.configModule.woocommerceHost,
-                woocommerceHostValid: value
+                woocommerceHostValid: value,
+                btcTransmuterHost: this.configModule.btcTransmuterHost,
+                btcTransmuterHostValid: this.configModule.btcTransmuterHostValid
+            });
+        }
+
+        public get btcTransmuterHost() {
+            return this.configModule.btcTransmuterHost;
+        }
+
+        public set btcTransmuterHost(value: string) {
+            this.configModule.setHosts({
+                btcpayHost: value,
+                btcpayHostValid: this.configModule.btcpayHostValid,
+                librePatronHost: this.configModule.librePatronHost,
+                librePatronHostValid: this.configModule.librePatronHostValid,
+                woocommerceHost: this.configModule.woocommerceHost,
+                woocommerceHostValid: this.configModule.woocommerceHostValid,
+                btcTransmuterHost: value,
+                btcTransmuterHostValid: this.configModule.btcTransmuterHostValid
+            });
+        }
+        public get btcTransmuterHostValid() {
+            return this.configModule.btcTransmuterHostValid;
+        }
+
+        public set btcTransmuterHostValid(value: boolean) {
+            this.configModule.setHosts({
+                btcpayHost: this.configModule.btcpayHost,
+                btcpayHostValid: this.configModule.btcpayHostValid,
+                librePatronHost: this.configModule.librePatronHost,
+                librePatronHostValid: this.configModule.librePatronHostValid,
+                woocommerceHost: this.configModule.woocommerceHost,
+                woocommerceHostValid: this.configModule.woocommerceHostValid,
+                btcTransmuterHost: this.configModule.btcTransmuterHost,
+                btcTransmuterHostValid: value
             });
         }
 
@@ -269,7 +363,8 @@
                                              saveMemory: boolean,
                                              librePatron: boolean,
                                              woocommerce: boolean,
-                                             btcqbo: boolean) {
+                                             btcqbo: boolean,
+                                             btcTransmuter: boolean) {
             const result = [];
 
             if (pruningOption) {
@@ -290,7 +385,9 @@
             if (woocommerce) {
                 result.push("opt-add-woocommerce");
             }
-
+            if (btcTransmuter) {
+                result.push("opt-add-btctransmuter");
+            }
             return result;
         }
 

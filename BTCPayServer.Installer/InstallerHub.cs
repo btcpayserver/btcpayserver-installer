@@ -194,6 +194,10 @@ namespace BTCPayServer.Installer
                 commands.Add(
                     $"export WOOCOMMERCE_HOST=\"{installRequest.WoocommerceHost}\"");
                 commands.Add(
+                    $"export BTCTRANSMUTER_HOST=\"{installRequest.BtcTransmuterHost}\"");
+                commands.Add(
+                    $"export BTCTRANSMUTER_CRYPTOS=\"{string.Join(',',installRequest.Coins)}\"");
+                commands.Add(
                     $"export BTCPAYGEN_ADDITIONAL_FRAGMENTS=\"{string.Join(';', installRequest.AdditionalFragments)}\"");
                 commands.Add(
                     $"export ACME_CA_URI=\"https://acme-v01.api.letsencrypt.org/directory\"");
@@ -308,6 +312,7 @@ namespace BTCPayServer.Installer
         public string BtcpayGeneratorDockerImage { get; set; }
         public string LibrePatronHost { get; set; }
         public string WoocommerceHost { get; set; }
+        public string BtcTransmuterHost { get; set; }
         public string BtcpayHost { get; set; }
     }
 

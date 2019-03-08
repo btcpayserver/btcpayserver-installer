@@ -42,7 +42,8 @@ export class InstallerHub {
 
     public async checkSpace(request: ISshBasicDetails) {
         return await this.connection.invoke<string>("CheckSpace", request);
-    }    
+    }
+
     public async checkDocker(request: ISshBasicDetails) {
         return await this.connection.invoke<string>("CheckDocker", request);
     }

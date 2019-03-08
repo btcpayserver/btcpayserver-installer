@@ -1,8 +1,8 @@
-import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
-import { ISshBasicDetails } from "@/installer/models/installer.models";
+import {Action, Module, Mutation, VuexModule} from "vuex-module-decorators";
+import {ISshBasicDetails} from "@/installer/models/installer.models";
 import installerHub from "@/installer/services/installer.hub";
 
-@Module({ name: "ssh" })
+@Module({name: "ssh"})
 export default class SSHModule extends VuexModule implements ISshBasicDetails {
     public host: string = "";
     public password: string = "";
@@ -22,7 +22,7 @@ export default class SSHModule extends VuexModule implements ISshBasicDetails {
         this.sshValid = valid;
     }
 
-    @Action({ commit: "setSshValid" })
+    @Action({commit: "setSshValid"})
     public async testSSHDetails() {
         return await installerHub.testSSHDetails({
             host: this.host,

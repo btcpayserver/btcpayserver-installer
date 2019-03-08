@@ -33,6 +33,8 @@ export interface HostsConfig {
     woocommerceHostValid: boolean;
     btcpayHost: string;
     btcpayHostValid: boolean;
+    btcTransmuterHost: string;
+    btcTransmuterHostValid: boolean;
 }
 
 

@@ -31,9 +31,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-
     </v-card>
-
 </template>
 
 <script lang="ts">

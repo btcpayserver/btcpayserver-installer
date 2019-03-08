@@ -18,10 +18,12 @@ export default class ConfigModule extends VuexModule implements SetupConfig, Mai
     public librePatronHost: string = "";
     public woocommerceHost: string = "";
     public btcpayHost: string = "";
+    public btcTransmuterHost: string = "";
 
     public btcpayHostValid: boolean = false;
     public librePatronHostValid: boolean = false;
     public woocommerceHostValid: boolean = false;
+    public btcTransmuterHostValid: boolean = false;
 
     @Mutation
     public setPreConfig(request: SetupConfig) {
