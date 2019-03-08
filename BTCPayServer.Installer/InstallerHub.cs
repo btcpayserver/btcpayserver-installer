@@ -201,15 +201,18 @@ namespace BTCPayServer.Installer
                     $"export BTCPAYGEN_ADDITIONAL_FRAGMENTS=\"{string.Join(';', installRequest.AdditionalFragments)}\"");
                 commands.Add(
                     $"export ACME_CA_URI=\"https://acme-v01.api.letsencrypt.org/directory\"");
-                commands.Add($"ssh-keygen -t rsa -f /root/.ssh/id_rsa_btcpay -q -P \"\" -y");
+                commands.Add(
+                    $"ssh-keygen -t rsa -f /root/.ssh/id_rsa_btcpay -q -P \"\"");
                 commands.Add(
                     $"echo \"# Key used by BTCPay Server\" >> /root/.ssh/authorized_keys");
                 commands.Add(
                     $"cat /root/.ssh/id_rsa_btcpay.pub >> /root/.ssh/authorized_keys");
-                commands.Add($"export BTCPAY_HOST_SSHKEYFILE=/root/.ssh/id_rsa_btcpay");
+                commands.Add(
+                    $"export BTCPAY_HOST_SSHKEYFILE=/root/.ssh/id_rsa_btcpay");
+                
                 commands.Add($"cd  btcpayserver-docker && . ./btcpay-setup.sh -i");
 
-                await SendCommandToStream(writer, client, sb.AppendJoin(" && ", commands).ToString());
+                await SendCommandToStream(writer, client, sb.AppendJoin($" && ", commands).ToString());
 
 
 //                

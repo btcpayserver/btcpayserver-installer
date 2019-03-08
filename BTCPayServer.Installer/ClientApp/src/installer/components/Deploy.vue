@@ -4,6 +4,7 @@
         <v-layout column>
             <v-flex xs12>
                 <v-btn @click="install" :disabled="loading">{{loading? "Deploying": "Deploy"}}</v-btn>
+                <v-btn @click="clearLogs" >Clear</v-btn>
 
                 <v-progress-circular
                         v-if="loading"
@@ -39,6 +40,10 @@
         private sshModule = getModule(SSHModule, this.$store);
 
 
+        public clearLogs(){
+            this.logs.splice(0,this.logs.length);
+        }
+        
         public install() {
             this.loading = true;
             installerHub.Install({
@@ -71,6 +76,7 @@
                     },
                     error: (err: any) => {
                         this.logs.push(`${err}`);
+                        this.loading = false;
                     }
                 });
         }
